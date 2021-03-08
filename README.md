@@ -1,2 +1,2 @@
-# cookie-consent
-Cookie Consent
+# Cookie Consent
+GDPR Cookie Consent Dialog
