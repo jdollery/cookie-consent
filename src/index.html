@@ -29,13 +29,25 @@
 
   <body>
 
-    <button id="allowCookies">
-      Allow Cookies &amp; Reload
+    <button id="resetCookies">
+      Reset Cookie Preferences
     </button>
 
-    <button id="declineCookies">
-      Decline Cookie &amp; Reload
-    </button>
+    <div class="cookie-dialog active" >
+      <div class="cookie-dialog__body">
+        <div class="cookie-dialog__header">
+          We are using cookies to see which pages you visit, and check to see if you have visited before, this helps us ensure you get the best experience on our website. To learn more about the cookies we use, please read our privacy policy.
+        </div>
+        <div class="cookie-dialog__control">
+          <button id="allowCookies">
+            Allow Cookies &amp; Reload
+          </button>
+          <button id="declineCookies">
+            Decline Cookie &amp; Reload
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- <button class="gdpr-modal__trigger">
       Cookie Preferences
@@ -81,6 +93,8 @@
     var declineButton = document.getElementById("declineCookies");
 
     // var resetButton = document.getElementById("resetCookies");
+
+    //https://github.com/Alex-D/Cookies-EU-Banner
 
     allowButton.addEventListener('click', function() {
       var now = new Date();
