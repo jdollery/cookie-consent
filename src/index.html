@@ -12,16 +12,16 @@
 
   <style>
 
-    .gdpr-modal *,.gdpr-modal::after,.gdpr-modal::before,.gdpr-banner *,.gdpr-banner::after,.gdpr-banner::before {
+    .cookie-dialog *,.cookie-dialog::after,.cookie-dialog::before {
         -webkit-box-sizing: border-box;
         box-sizing: border-box
     }
 
-    .gdpr-modal {
+    .cookie-dialog {
       display: none;
     }
 
-    .gdpr-modal--active {
+    .cookie-dialog--active {
       display: block;
     }
 
@@ -29,70 +29,31 @@
 
   <body>
 
-    <button id="resetCookies">
+    <button id="resetCookies" class="cookie-dialog__reset" type="button" title="Open Cookie Preferences Dialog">
       Reset Cookie Preferences
     </button>
 
-    <div class="cookie-dialog active" >
+    <div id="cookieDialog" class="cookie-dialog cookie-dialog--active" >
       <div class="cookie-dialog__body">
         <div class="cookie-dialog__header">
-          We are using cookies to see which pages you visit, and check to see if you have visited before, this helps us ensure you get the best experience on our website. To learn more about the cookies we use, please read our privacy policy.
-        </div>
+          We are using cookies to see which pages you visit and check if you have visited us before, this helps us ensure you get the best experience on our website. To learn more about the cookies we use, please read our <a href="#">privacy policy</a>.</div>
         <div class="cookie-dialog__control">
-          <button id="allowCookies">
+          <button id="allowCookies" type="button" title="Allow Unnecessary Cookies">
             Allow Cookies &amp; Reload
           </button>
-          <button id="declineCookies">
-            Decline Cookie &amp; Reload
+          <button id="declineCookies" type="button" title="Reject Unnecessary Cookies">
+            Reject Cookies &amp; Reload
           </button>
         </div>
       </div>
     </div>
 
-    <!-- <button class="gdpr-modal__trigger">
-      Cookie Preferences
-    </button>
-
-    <div class="gdpr-modal gdpr-modal--active" role="dialog" aria-labelledby="" aria-describedby="">
-      <div class="gdpr-modal__content">
-  
-        <div class="gdpr-modal__content__title">
-          Manage Cookie Preferences
-        </div>
-        <div class="gdpr-modal__content__intro">
-          <p>We use necessary cookies to make our site work. We would also like to set optional Preference, Marketing and Statistical cookies. We won&rsquo;t set optional cookies unless you enable them. Using this tool will set a cookie on your device to remember what you have consented to.</p>
-          <p>For more information about the use of cookies or our use of data, see our <a href="" target="_blank">Cookie Policy</a> or <a href="" target="_blank">Privacy Policy</a>.</p>
-        </div>
-        <div class="gdpr-modal__content__control">
-          <button class="gdpr-modal__save">Save &amp; Reload</button>
-          <button class="gdpr-modal__check gdpr-modal__check--allow" id="checkAll" data-text-swap="Decline All Cookies">Allow All Cookies</button>
-        </div>
-
-      </div>
-    </div> -->
-
     <script>
-
-    // MODAL
-
-    // var modal = document.querySelector(".gdpr-modal");
-    // var trigger = document.querySelector(".gdpr-modal__trigger");
-    // var saveButton = document.querySelector(".gdpr-modal__save");
-
-    // function toggleModal() {
-    //   modal.classList.toggle("gdpr-modal--active");
-    // }
-
-    // saveButton.addEventListener("click", toggleModal);
-    // trigger.addEventListener("click", toggleModal);
-
-    // var addButton = document.querySelector("#addCookie");
-    // var deleteButton = document.querySelector("#deleteCookie");
-
+    
+    var dialog = document.getElementById("cookieDialog");
     var allowButton = document.getElementById("allowCookies");
     var declineButton = document.getElementById("declineCookies");
-
-    // var resetButton = document.getElementById("resetCookies");
+    var resetButton = document.getElementById("resetCookies");
 
     //https://github.com/Alex-D/Cookies-EU-Banner
 
@@ -101,24 +62,19 @@
       var time = now.getTime();
       var expireTime = time + 180*24*60*60*1000; //expire in 6 months
       now.setTime(expireTime);
-      document.cookie = 'consentCookie' + '=true; Path=/; Expires=' + now.toGMTString();
-      // console.log("Cookies Allow");
+      document.cookie = 'cookieConsent' + '=true; Path=/; Expires=' + now.toGMTString();
       window.location.reload();
     });
 
     declineButton.addEventListener('click', function() {
-      document.cookie = 'consentCookie' + '=false; Path=/;';
+      document.cookie = 'cookieConsent' + '=false; Path=/;';
       document.cookie = '_ga' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'; //need array of cookies
-      // console.log("Cookies Decline");
       window.location.reload();
     });
 
-    // resetButton.addEventListener('click', function() {
-    //   document.cookie = 'consentCookie' + '=false; Path=/;';
-    //   document.cookie = '_ga' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'; //need array of cookies
-    //   console.log("Cookies Deleted");
-    //   // window.location.reload();
-    // });
+    resetButton.addEventListener('click', function() {
+      dialog.classList.add("cookie-dialog--active");
+    });
 
     function getCookie(name) {
       var nameEQ = name + "=";
@@ -131,13 +87,16 @@
       return null;
     }
 
-    var x = getCookie('consentCookie')
-    if (x == 'true') {
+    var x = getCookie('cookieConsent')
+    if (!x) {
+      dialog.classList.add("cookie-dialog--active");
+    } else if (x == 'true') {
       console.log('Cookies Allowed');
+      dialog.classList.remove("cookie-dialog--active");
     } else if (x == 'false') {
       console.log('Cookies Declined');
+      dialog.classList.remove("cookie-dialog--active");
     }
-      
 
     </script>
 
