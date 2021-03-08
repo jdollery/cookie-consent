@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="robots" content="noindex" />
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <meta name="description" content="">
+  </head>
+
+  <style>
+
+    .gdpr-modal *,.gdpr-modal::after,.gdpr-modal::before,.gdpr-banner *,.gdpr-banner::after,.gdpr-banner::before {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box
+    }
+
+    .gdpr-modal {
+      display: none;
+    }
+
+    .gdpr-modal--active {
+      display: block;
+    }
+
+  </style>
+
+  <body>
+
+    <button id="allowCookies">
+      Allow Cookies &amp; Reload
+    </button>
+
+    <button id="declineCookies">
+      Decline Cookie &amp; Reload
+    </button>
+
+    <!-- <button class="gdpr-modal__trigger">
+      Cookie Preferences
+    </button>
+
+    <div class="gdpr-modal gdpr-modal--active" role="dialog" aria-labelledby="" aria-describedby="">
+      <div class="gdpr-modal__content">
+  
+        <div class="gdpr-modal__content__title">
+          Manage Cookie Preferences
+        </div>
+        <div class="gdpr-modal__content__intro">
+          <p>We use necessary cookies to make our site work. We would also like to set optional Preference, Marketing and Statistical cookies. We won&rsquo;t set optional cookies unless you enable them. Using this tool will set a cookie on your device to remember what you have consented to.</p>
+          <p>For more information about the use of cookies or our use of data, see our <a href="" target="_blank">Cookie Policy</a> or <a href="" target="_blank">Privacy Policy</a>.</p>
+        </div>
+        <div class="gdpr-modal__content__control">
+          <button class="gdpr-modal__save">Save &amp; Reload</button>
+          <button class="gdpr-modal__check gdpr-modal__check--allow" id="checkAll" data-text-swap="Decline All Cookies">Allow All Cookies</button>
+        </div>
+
+      </div>
+    </div> -->
+
+    <script>
+
+    // MODAL
+
+    // var modal = document.querySelector(".gdpr-modal");
+    // var trigger = document.querySelector(".gdpr-modal__trigger");
+    // var saveButton = document.querySelector(".gdpr-modal__save");
+
+    // function toggleModal() {
+    //   modal.classList.toggle("gdpr-modal--active");
+    // }
+
+    // saveButton.addEventListener("click", toggleModal);
+    // trigger.addEventListener("click", toggleModal);
+
+    // var addButton = document.querySelector("#addCookie");
+    // var deleteButton = document.querySelector("#deleteCookie");
+
+    var allowButton = document.getElementById("allowCookies");
+    var declineButton = document.getElementById("declineCookies");
+
+    // var resetButton = document.getElementById("resetCookies");
+
+    allowButton.addEventListener('click', function() {
+      var now = new Date();
+      var time = now.getTime();
+      var expireTime = time + 180*24*60*60*1000; //expire in 6 months
+      now.setTime(expireTime);
+      document.cookie = 'consentCookie' + '=true; Path=/; Expires=' + now.toGMTString();
+      // console.log("Cookies Allow");
+      window.location.reload();
+    });
+
+    declineButton.addEventListener('click', function() {
+      document.cookie = 'consentCookie' + '=false; Path=/;';
+      document.cookie = '_ga' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'; //need array of cookies
+      // console.log("Cookies Decline");
+      window.location.reload();
+    });
+
+    // resetButton.addEventListener('click', function() {
+    //   document.cookie = 'consentCookie' + '=false; Path=/;';
+    //   document.cookie = '_ga' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'; //need array of cookies
+    //   console.log("Cookies Deleted");
+    //   // window.location.reload();
+    // });
+
+    function getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+    }
+
+    var x = getCookie('consentCookie')
+    if (x == 'true') {
+      console.log('Cookies Allowed');
+    } else if (x == 'false') {
+      console.log('Cookies Declined');
+    }
+      
+
+    </script>
+
+  </body>
+</html>
