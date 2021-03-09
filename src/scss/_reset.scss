@@ -1,0 +1,12 @@
+.cookie-dialog *,.cookie-dialog::after,.cookie-dialog::before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+.cookie-dialog {
+  display: none;
+}
+
+.cookie-dialog--active {
+  display: block;
+}
