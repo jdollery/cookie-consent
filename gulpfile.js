@@ -1,3 +1,9 @@
+// npm init
+// npm install --save-dev gulp
+// npm install node-sass gulp-sass gulp-concat gulp-uglify gulp-sourcemaps --save-dev
+// npm install node-sass gulp-sass gulp-sourcemaps --save-dev
+
+
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
