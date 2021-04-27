@@ -1,3 +1,3 @@
-.cookie-dialog *,.cookie-dialog::after,.cookie-dialog::before{-webkit-box-sizing:border-box;box-sizing:border-box}.cookie-dialog{display:none}.cookie-dialog--active{display:block}
+.cookie-dialog *,.cookie-dialog::after,.cookie-dialog::before{-webkit-box-sizing:border-box;box-sizing:border-box}.cookie-dialog{position:fixed;bottom:0;left:0;right:0;display:none}.cookie-dialog--active{display:block}.cookie-dialog__body{font-family:Arial, Helvetica, sans-serif;font-size:20px;background-color:#000000;color:#ffffff}.cookie-dialog__reset{position:fixed;bottom:0;left:0;right:0}
 
 /*# sourceMappingURL=style.css.map */

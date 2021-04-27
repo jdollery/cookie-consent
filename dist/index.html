@@ -13,37 +13,22 @@
 
   <body>
 
-    <button id="resetCookies" class="cookie-dialog__reset" type="button" title="Open Cookie Preferences Dialog">
-      Reset Cookie Preferences
-    </button>
+    <h1>Banner header</h1>
 
-    <div id="cookieDialog" class="cookie-dialog cookie-dialog--active" style="margin-top: 40px;">
-      <div class="cookie-dialog__body">
-        <div class="cookie-dialog__header">
-          We are using cookies to see which pages you visit and check if you have visited us before, this helps us ensure you get the best experience on our website. To learn more about the cookies we use, please read our <a href="#">privacy policy</a>.</div>
-        <div class="cookie-dialog__control">
-          <button id="allowCookies" type="button" title="Allow Unnecessary Cookies">
-            Allow Cookies &amp; Reload
-          </button>
-          <button id="declineCookies" type="button" title="Reject Unnecessary Cookies">
-            Reject Cookies &amp; Reload
-          </button>
-        </div>
-      </div>
-    </div>
+    <img src="https://via.placeholder.com/300x600" alt="">
 
-    <script type="text/javascript" src="./js/cookie-consent.js"></script>
+    <script type="text/javascript" src="./cookie-consent.js"></script>
     <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-32035579-1"></script>
 
     <script>
 
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      var gddltag = 'UA-32035579-1';
-      var dTag = 'ga-disable-' + gddltag;
+      let gddltag = 'UA-32035579-1';
+      let dTag = 'ga-disable-' + gddltag;
       gtag('js', new Date());
 
-      var cookieConsent = getCookie('cookieConsent')
+      const cookieConsent = getCookie('cookieConsent')
       if (!cookieConsent) {
       } else if (cookieConsent == 'true') {
 
