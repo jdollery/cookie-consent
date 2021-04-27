@@ -2,32 +2,44 @@
 .cookie-dialog::after,
 .cookie-dialog::before {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .cookie-dialog {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: none;
 
-  &--active {
-    display: block;
+  a, 
+  area, 
+  button, 
+  [role=button], 
+  input:not([type=range]), 
+  label, 
+  select, 
+  summary, 
+  textarea {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
   }
 
-  &__body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    background-color: #000000;
-    color: #ffffff;
+  *:focus {
+    outline: none;
+    outline: 0;
+    outline: -webkit-focus-ring-color 0;
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
   }
 
-  &__reset {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  // button:focus,
+  a:focus {
+    outline: 1px dotted #8c8c8c;
+    text-decoration: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: .01ms!important;
+    animation-iteration-count: 1!important;
+    transition-duration: .01ms!important;
+    scroll-behavior: auto!important;
   }
 
 }

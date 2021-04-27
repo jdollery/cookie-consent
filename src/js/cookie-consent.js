@@ -9,8 +9,8 @@ const Cookieconsent = function init() {
   //Give the container unique id
   cookieHTML.id = 'cookieConsent';
 
-  //Give the container unique id
-  // cookieHTML.classList.add("cookie-consent");
+  //Give the container unique class
+  cookieHTML.classList.add("cookie-dialog");
 
   //Add dialog and reset to container - insertAdjacentHTML is a quicker and backward compatable, rather than innerHTML
   cookieHTML.insertAdjacentHTML("beforeend", "{{load path='./src/html/dialog.html'}}"); //inject with gulp
@@ -53,23 +53,23 @@ const Cookieconsent = function init() {
 
   //Open dialog
   resetButton.addEventListener('click', function() {
-    dialog.classList.add("cookie-dialog--active"); 
+    dialog.classList.add("cookie-dialog__body--active"); 
   });
 
   const x = getCookie('cookieConsent')
   
   if (!x) {
-    dialog.classList.add("cookie-dialog--active"); //Show dialog if no actioned
+    dialog.classList.add("cookie-dialog__body--active"); //Show dialog if no actioned
 
   } else if (x == 'true') {
     console.log('Cookies Allowed');
 
-    dialog.classList.remove("cookie-dialog--active"); //Remove dialog if actioned
+    dialog.classList.remove("cookie-dialog__body--active"); //Remove dialog if actioned
 
   } else if (x == 'false') {
     console.log('Cookies Declined');
 
-    dialog.classList.remove("cookie-dialog--active"); //Remove dialog if actioned
+    dialog.classList.remove("cookie-dialog__body--active"); //Remove dialog if actioned
 
   }
 
