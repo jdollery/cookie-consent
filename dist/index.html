@@ -9,14 +9,6 @@
     <meta name="author" content="">
     <meta name="description" content="">
     <link rel="stylesheet" href="./style.css">
-
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-32035579-1');
-    </script>
-
   </head>
 
   <body>
@@ -25,7 +17,7 @@
       Reset Cookie Preferences
     </button>
 
-    <div id="cookieDialog" class="cookie-dialog cookie-dialog--active" >
+    <div id="cookieDialog" class="cookie-dialog cookie-dialog--active" style="margin-top: 40px;">
       <div class="cookie-dialog__body">
         <div class="cookie-dialog__header">
           We are using cookies to see which pages you visit and check if you have visited us before, this helps us ensure you get the best experience on our website. To learn more about the cookies we use, please read our <a href="#">privacy policy</a>.</div>
@@ -40,90 +32,34 @@
       </div>
     </div>
 
+    <script type="text/javascript" src="./js/cookie-consent.js"></script>
+    <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-32035579-1"></script>
+
     <script>
 
-    var Cookieconsent = function init() {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      var gddltag = 'UA-32035579-1';
+      var dTag = 'ga-disable-' + gddltag;
+      gtag('js', new Date());
 
-      var tags = {
-        google: 'UA-32035579-1'
-      };
+      var cookieConsent = getCookie('cookieConsent')
+      if (!cookieConsent) {
+      } else if (cookieConsent == 'true') {
 
-      var dialog = document.getElementById("cookieDialog");
-      var allowButton = document.getElementById("allowCookies");
-      var declineButton = document.getElementById("declineCookies");
-      var resetButton = document.getElementById("resetCookies");
+        gtag('config', gddltag);
 
-      //Find cookie and value
-      function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-          var c = ca[i];
-          while (c.charAt(0)==' ') c = c.substring(1,c.length);
-          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-        }
-        return null;
-      }
+      } else if (cookieConsent == 'false') {
 
-      allowButton.addEventListener('click', function() {
-        var now = new Date();
-        var time = now.getTime();
-        var expireTime = time + 180*24*60*60*1000; //expire in 6 months
-        now.setTime(expireTime);
-        document.cookie = 'cookieConsent' + '=true; Path=/; Expires=' + now.toGMTString(); //add cookieConsent cookie & set to ture
-        window.location.reload();
-      });
-
-      //Reject cookies and close dialog
-      declineButton.addEventListener('click', function() {
-        document.cookie = 'cookieConsent' + '=false; Path=/;'; //set cookieConsent cookie to false
-        window.location.reload();
-
-        //Find google traking code and set expiry - need to use in click?? 
-        // let i = getCookie('_gat_gtag_UA_32035579_1')
-        // document.cookie = i + '=1; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-
-      });
-
-      //Open dialog
-      resetButton.addEventListener('click', function() {
-        dialog.classList.add("cookie-dialog--active"); 
-      });
-
-
-      var x = getCookie('cookieConsent')
-      
-      if (!x) {
-        dialog.classList.add("cookie-dialog--active"); //Show dialog if no actioned
-
-      } else if (x == 'true') {
-        console.log('Cookies Allowed');
-
-        dialog.classList.remove("cookie-dialog--active"); //Remove dialog if actioned
-
-        //Add google tag manager script and add tracking code if cookies allowed
-        let analytics = document.createElement('script');
-        analytics.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=' + tags.google);
-        document.head.appendChild(analytics);
-
-      } else if (x == 'false') {
-        console.log('Cookies Declined');
-
-        dialog.classList.remove("cookie-dialog--active"); //Remove dialog if actioned
-
-        //Find google tag manager script and remove if cookies rejected
-        let analytics = document.head.getElementsByTagName('https://www.googletagmanager.com/gtag/');
-        if (analytics.length > 0) {
-          document.head.removeChild(analytics[0]);
-        }     
-
-        //https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript
+        gtag('config', gddltag, {
+          // 'anonymize_ip': true,
+          'anonymize_ip': true, //track anonymously - need to check location
+          // 'send_page_view': false,
+          // 'allow_display_features': false
+        });
+        // window[dTag] = true;
 
       }
-
-    };
-
-    Cookieconsent();
 
     </script>
 
