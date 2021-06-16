@@ -7,7 +7,7 @@
 
 const gulp = require('gulp');
 const sass = require('gulp-sass');
-const sourcemaps = require('gulp-sourcemaps');
+// const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const inject = require('gulp-inject-views');
@@ -22,16 +22,16 @@ const paths = {
     src: './src/js/cookie-consent.js',
     html: './src/html/**/*.html',
     dest: './dist'
-  }
+  },
 };
 
 	
 function css() {
   return gulp
   .src(paths.styles.src)
-  .pipe(sourcemaps.init())
+  // .pipe(sourcemaps.init())
   .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
-  .pipe(sourcemaps.write('.'))
+  // .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest(paths.styles.dest))
 }
 

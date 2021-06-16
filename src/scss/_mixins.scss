@@ -1,3 +1,26 @@
+@mixin hover-focus {
+  &:hover,
+  &:focus {
+    @content;
+  }
+}
+
+@mixin transition($transition...){
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -ms-transition: $transition;
+  transition: $transition;
+ }
+
+@mixin transform($transform...){
+  -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -o-transform: $transform;
+  -ms-transform: $transform;
+  transform: $transform;
+}
+
 @mixin button {
   cursor: pointer;
   background-color: transparent;
@@ -6,6 +29,7 @@
   transition: all .3s ease;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+  font-family: inherit;
   font-size: $font-size-sm;
   line-height: 1.7;
   user-select: none;
@@ -18,9 +42,14 @@
   border-width: 2px;
   border-style: solid;
   border-radius: 3px;
+  @include transition(opacity 0.3s ease-in-out);
 
   @media (min-width: $media-min) {
     font-size: $font-size-lg;
+  }
+
+  @include hover-focus {
+    opacity: 0.7;
   }
 
 }

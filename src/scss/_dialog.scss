@@ -1,7 +1,16 @@
 .cookie-dialog {
 
   a {
-    color: #ffffff;
+    color: inherit;
+    @include transition(opacity 0.8s ease);
+
+    @include hover-focus {
+      color: inherit;
+      text-decoration: none;
+      outline: 0;
+      opacity: 0.5;
+    }
+
   }
 
   &__body {
@@ -9,20 +18,20 @@
     bottom: 0;
     left: 0;
     right: 0;
-    display: none;
-  
-    &--active {
-      display: flex;
-    }
-  
+    display: flex;  
     flex-wrap: wrap;
     align-items: center;
     padding: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: arial, sans-serif;
+    font-family: inherit;
     font-size: $font-size-sm;
-    line-height: 1.7;
+    line-height: 1.6;
     background-color: #000000;
     color: #ffffff;
+    z-index: 9999999999999999;
+    visibility: hidden;
+    @include transform (translateY(100px));
+    @include transition(transform 0.8s ease);
 
     @media (min-width: $media-min) {
       font-size: $font-size-lg;
@@ -39,8 +48,6 @@
     text-align: center;
 
     @media (min-width: $media-min) {
-      // flex: 0 0 70%;
-      // max-width: 70%;
       flex-grow: 1;
       flex-basis: 0;
       max-width: 100%;
@@ -57,8 +64,6 @@
     text-align: center;
 
     @media (min-width: $media-min) {
-      // flex: 0 0 30%;
-      // max-width: 30%;
       flex: 0 0 auto;
       -webkit-box-flex: 0;
       width: auto;
@@ -79,18 +84,6 @@
     color: #fff;
     background: #000000;
     border-color: #838383;
-
-    &:focus {
-      background: #838383;
-      border-color: #838383;
-    }
-
-    &:hover,
-    &:active {
-      background: #9c9c9c;
-      border-color: #9c9c9c;
-    }
-
   }
 
   &__reject {
@@ -100,34 +93,34 @@
     color: #fff;
     background: #000000;
     border-color: #838383;
-
-    &:focus {
-      background: #838383;
-      border-color: #838383;
-    }
-
-    &:hover,
-    &:active {
-      background: #9c9c9c;
-      border-color: #9c9c9c;
-    }
-
   }
 
   &__reset {
-    @include button;
-    display: inline-block;
-    position: fixed;
-    bottom: 0;
-    left: 20px;
-    right: 0;
-    color: #fff;
-    background: #9c9c9c;
-    border-color: #9c9c9c;
-    border-radius: 3px 3px 0 0;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    -webkit-appearance: button;
+    text-decoration: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    color: inherit;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+  }
 
-    @media (min-width: $media-min) {
-      left: 30px;
+  &--active {
+
+    .cookie-dialog {
+    
+      &__body {
+        visibility: visible;
+        @include transform (translateY(0));
+      }
+
     }
 
   }

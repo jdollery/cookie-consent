@@ -16,9 +16,13 @@ const Cookieconsent = function init() {
   cookieHTML.insertAdjacentHTML("beforeend", "{{load path='./src/html/dialog.html'}}"); //inject with gulp
   
   //Append the container to the HTML body
-  document.body.appendChild(cookieHTML);
+  document.body.prepend                                                                                                                                                     (cookieHTML);
 
-  const dialog = document.getElementById("cookieDialog");
+  // const cookieAppend = document.createElement(cookieHTML);
+
+  // document.body.insertBefore(cookieAppend, document.body.firstChild);
+
+  const dialog = document.getElementById("cookieConsent");
   const allowButton = document.getElementById("allowCookies");
   const declineButton = document.getElementById("declineCookies");
   const resetButton = document.getElementById("resetCookies");
@@ -35,13 +39,18 @@ const Cookieconsent = function init() {
     return null;
   }
 
-  //Accept cookies and close dialog
-  allowButton.addEventListener('click', function() {
+  //Init cookies and open dialog
+  function addCookie(name) {
     let now = new Date();
     let time = now.getTime();
     let expireTime = time + 180*24*60*60*1000; //expire in 6 months
     now.setTime(expireTime);
-    document.cookie = 'cookieConsent' + '=true; Path=/; Expires=' + now.toGMTString(); //add cookieConsent cookie & set to ture
+    document.cookie = name + '=init; Path=/; Expires=' + now.toGMTString(); //add cookieConsent cookie & set to ture;
+  }
+
+  //Accept cookies and close dialog
+  allowButton.addEventListener('click', function() {
+    document.cookie = 'cookieConsent' + '=true; Path=/;'; //set cookieConsent cookie to false
     window.location.reload();
   });
 
@@ -52,24 +61,35 @@ const Cookieconsent = function init() {
   });
 
   //Open dialog
-  resetButton.addEventListener('click', function() {
-    dialog.classList.add("cookie-dialog__body--active"); 
-  });
+  if(document.getElementById('resetCookies')) {
+    resetButton.addEventListener('click', function() {
+      dialog.classList.add("cookie-dialog--active"); 
+      document.cookie = 'cookieConsent' + '=init; Path=/;'; //set cookieConsent cookie to false
+    });
+  }
 
   const x = getCookie('cookieConsent')
   
   if (!x) {
-    dialog.classList.add("cookie-dialog__body--active"); //Show dialog if no actioned
+
+    dialog.classList.add("cookie-dialog--active"); //Add dialog if actioned
+    addCookie('cookieConsent');  
 
   } else if (x == 'true') {
-    console.log('Cookies Allowed');
 
-    dialog.classList.remove("cookie-dialog__body--active"); //Remove dialog if actioned
+    console.log('Cookies Accepted');
+
+    dialog.classList.remove("cookie-dialog--active"); //Remove dialog if actioned
 
   } else if (x == 'false') {
+
     console.log('Cookies Declined');
 
-    dialog.classList.remove("cookie-dialog__body--active"); //Remove dialog if actioned
+    dialog.classList.remove("cookie-dialog--active"); //Remove dialog if actioned
+
+  } else if (x == 'init') {
+
+    dialog.classList.add("cookie-dialog--active"); //Remove dialog if actioned
 
   }
 

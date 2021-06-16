@@ -8,10 +8,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="">
     <meta name="description" content="">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./cookie-styles.css">
   </head>
 
   <body>
+
+    <a id="resetCookies" class="cookie-dialog__reset" tabindex="0" type="button" title="Reset and open cookie preferences">Please click here to reset your cookie preference.</a>
 
     <script type="text/javascript" src="./cookie-consent.js"></script>
     <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-32035579-1"></script>
@@ -19,10 +21,31 @@
     <script>
 
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){
+        dataLayer.push(arguments);
+      }
       let gddltag = 'UA-32035579-1';
       let dTag = 'ga-disable-' + gddltag;
       gtag('js', new Date());
+
+      ! function(f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function() {
+          n.callMethod ?
+            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s)
+      }(window, document, 'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '123456789012345');
 
       const cookieConsent = getCookie('cookieConsent')
       if (!cookieConsent) {
@@ -30,15 +53,26 @@
 
         gtag('config', gddltag);
 
+        fbq('consent', 'grant');
+        fbq('track', 'PageView');
+
       } else if (cookieConsent == 'false') {
 
         gtag('config', gddltag, {
-          // 'anonymize_ip': true,
-          'anonymize_ip': true, //track anonymously - need to check location
-          // 'send_page_view': false,
-          // 'allow_display_features': false
+          'anonymize_ip': true,
         });
-        // window[dTag] = true;
+
+        fbq('consent', 'revoke');
+        fbq('track', 'PageView');
+
+      } else if (cookieConsent == 'init'){
+
+        gtag('config', gddltag, {
+          'anonymize_ip': true,
+        });
+
+        fbq('consent', 'revoke');
+        fbq('track', 'PageView');
 
       }
 
