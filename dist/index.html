@@ -24,8 +24,10 @@
       function gtag(){
         dataLayer.push(arguments);
       }
-      let gddltag = 'UA-32035579-1';
-      let dTag = 'ga-disable-' + gddltag;
+      let cookieAnalytics = 'UA-32035579-1';
+      let cookieAdwords = 'AW-875374695';
+      let dTag = 'ga-disable-' + cookieAnalytics;
+      let cookiePixel = 'AW-875374695';
       gtag('js', new Date());
 
       ! function(f, b, e, v, n, t, s) {
@@ -45,31 +47,36 @@
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s)
       }(window, document, 'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '123456789012345');
+      fbq('init', cookiePixel);
 
       const cookieConsent = getCookie('cookieConsent')
       if (!cookieConsent) {
       } else if (cookieConsent == 'true') {
 
-        gtag('config', gddltag);
+        gtag('config', cookieAnalytics);
+        gtag('config', cookieAdwords);
 
         fbq('consent', 'grant');
         fbq('track', 'PageView');
 
       } else if (cookieConsent == 'false') {
 
-        gtag('config', gddltag, {
+        gtag('config', cookieAnalytics, {
           'anonymize_ip': true,
         });
+
+        window[googleDisable] = true;
 
         fbq('consent', 'revoke');
         fbq('track', 'PageView');
 
       } else if (cookieConsent == 'init'){
 
-        gtag('config', gddltag, {
+        gtag('config', cookieAnalytics, {
           'anonymize_ip': true,
         });
+
+        window[googleDisable] = true;
 
         fbq('consent', 'revoke');
         fbq('track', 'PageView');
